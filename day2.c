@@ -24,7 +24,7 @@ int strtocolor(char *str) {
     return 0;
 }
 
-int main() {
+int part1() {
 	FILE *inputfd;
 	inputfd = fopen("input2.txt", "r");
 	if (inputfd == NULL) {
@@ -107,9 +107,95 @@ int main() {
 		}
 	}
 
-	printf("Catching cheaters...\n");
+    return answer;
+}
 
-	printf("Part1: %d", answer);
+int part2() {
+	FILE *inputfd;
+	inputfd = fopen("input2.txt", "r");
+	if (inputfd == NULL) {
+		printf("Error opening file!");
+		return 1;
+	}
 
+	char *line;
+	size_t buflen = 0;
+	ssize_t read;
+
+	int answer = 0;
+
+    printf("Reading games...\n");
+
+	while ((read = getline(&line, &buflen, inputfd)) != -1) {
+		int len = strlen(line);
+
+		int id, possible=1,red=0, green=0, blue=0, curr=0, what=0;
+		char delim[] = " ";
+		
+		char *ptr = strtok(line, delim);
+		
+		// Throw away "Game" 
+		ptr = strtok(NULL, delim);
+
+		// Parse ID
+		id = atoi(ptr);
+		printf("Parsing game '%d'\n", id);
+
+		while(ptr != NULL)
+		{
+			ptr = strtok(NULL, delim);
+			if(ptr == NULL) {
+				break;
+			}
+
+			if (what == 0) {
+				what = 1;
+
+				curr = atoi(ptr);
+				continue;
+			}
+
+			int ptrlen;
+			if((ptrlen = strlen(ptr)) < 3) {
+				break;
+			}
+
+			what = 0;
+			int col = strtocolor(ptr);
+			if(col == 0) {
+				break;
+			}
+			switch (col) {
+				case 1:
+                    if(curr > red) {
+					    red = curr;
+                    }
+					break;
+				case 2:
+                    if(curr > green) {
+					    green = curr;
+                    }
+					break;
+				case 3:
+                    if(curr > blue) {
+					    blue = curr;
+                    }
+					break;
+			}
+		}
+
+        printf("Factor for game %d: %d\n", id, green*red*blue);
+        answer += green*red*blue;
+	}
+
+    return answer;
+}
+
+int main() {
+	/* int p1 = part1(); */
+    /* printf("Part1: %d\n", p1); */
+
+	int p2 = part2();
+    printf("Part2: %d\n", p2);
 	return 0;
 }
