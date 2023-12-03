@@ -30,7 +30,7 @@ void map_symbols(char *schematic, char *symbols) {
 	}
 }
 
-int walk(char *schematic, char *symbols) {
+int part1(char *schematic, char *symbols) {
 	char tmp[4];
 	int answer = 0;
 	for(int i = 0; i < strlen(schematic); i++) {
@@ -48,7 +48,6 @@ int walk(char *schematic, char *symbols) {
 
 		for(int j = 0; j < len; j++) {
 			if(issymbol(symbols[i+j])) {
-				printf("Found engine part %d\n", num);
 				answer += num;
 				break;
 			}
@@ -58,6 +57,93 @@ int walk(char *schematic, char *symbols) {
 	}
 
 	return answer;
+}
+
+// getnum gets the number at index i, it will check backwards to find the whole
+// number.
+int getnum(char *schematic, int i) {
+    if(!isdigit(schematic[i])) {
+        return 0;
+    }
+
+    char tmp[4];
+    int start = i;
+    while(isdigit(schematic[start-1])) start--;
+    int len = (int)(strchr(schematic+start, '.') - (schematic+start));
+    if(len > 3) len = 3;
+
+    strncpy(tmp, schematic+start, len);
+    tmp[len] = '\0';
+
+    return atoi(tmp);
+}
+
+int factor(int nums[8]) {
+    int num1=0, num2=0, count = 0;
+    for(int i = 0; i < 8; i++) {
+        if(nums[i] != 0) {
+            if(count == 0) {
+                num1 = nums[i];
+                count++;
+                continue;
+            }
+
+            if(count == 1 && num1 == nums[i]) {
+                continue;
+            }
+
+            if(count == 1) {
+                num2 = nums[i];
+                count++;
+                continue;
+            }
+
+            printf("WTF(%d, %d)\n", num1, num2);
+        }
+        
+    }
+    
+    return num1*num2;
+}
+
+void printgear(int nums[8]) {
+    for(int i = 0; i < 8; i++) {
+        printf("%d, ", nums[i]);
+    }
+    printf(" (%d)\n", factor(nums));
+}
+
+int part2(char *schematic) {
+    int answer = 0;
+	int len = (int)(strchr(schematic, '\n') - schematic);
+
+    int i = 0;
+    while(1) {
+        i = (int)(strchr(schematic+i+1, '*') - schematic);
+        if(i<0 || i > strlen(schematic)) {
+            break;
+        }
+
+
+        int nums[8];
+        nums[0] = getnum(schematic, i-len-2);
+        nums[1] = getnum(schematic, i-len-1);
+        nums[2] = getnum(schematic, i-len);
+        nums[3] = getnum(schematic, i-1);
+        nums[4] = getnum(schematic, i+1);
+        nums[5] = getnum(schematic, i+len);
+        nums[6] = getnum(schematic, i+len+1);
+        nums[7] = getnum(schematic, i+len+2);
+
+
+        int fact = factor(nums);
+        answer += fact;
+
+        printf("Found gear at idx %d, factor %d\n", i, fact);
+        printgear(nums);
+    }
+
+    return answer;
 }
 
 int main() {
@@ -90,16 +176,14 @@ int main() {
 
 	int len = (int)(strchr(buffer, '\n') - buffer);
 
-	printf("Found a %d %d buffer\n", len, len);
 	printf("Map:\n%s", buffer);
 
 	map_symbols(buffer, symbols);
 
-	printf("\nSymbols:\n%s", symbols);
+	int answer1 = part1(buffer, symbols);
+	int answer2 = part2(buffer);
 
-	int answer = walk(buffer, symbols);
-
-	printf("The answer is %d\n", answer);
+	printf("Part1: %d\nPart2: %d\n", answer1, answer2);
 
 	free(buffer);
 	free(symbols);
