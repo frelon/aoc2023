@@ -5,3 +5,6 @@ day1: day1.c
 
 day2: day2.c
 	$(CC) -o day2 day2.c
+
+day3: day3.c
+	$(CC) -o day3 day3.c
