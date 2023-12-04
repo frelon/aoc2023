@@ -8,3 +8,6 @@ day2: day2.c
 
 day3: day3.c
 	$(CC) -o day3 day3.c
+
+day4: day4.c
+	$(CC) -o day4 day4.c
