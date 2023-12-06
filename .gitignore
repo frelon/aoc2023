@@ -43,7 +43,6 @@
 *.pdb
 
 # Kernel Module Compile Results
-*.mod*
 *.cmd
 .tmp_versions/
 modules.order
@@ -56,4 +55,5 @@ day1
 day2
 day3
 day4
+day5
 day6

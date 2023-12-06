@@ -12,5 +12,8 @@ day3: day3.c
 day4: day4.c
 	$(CC) -o day4 day4.c
 
+day5: day5.go
+	go build -o day5 day5.go
+
 day6: day6.c
 	$(CC) -o day6 day6.c
