@@ -50,10 +50,5 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-input*.txt
-day1
-day2
-day3
-day4
-day5
-day6
+input/
+day[0-9]

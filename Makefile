@@ -1,19 +1,15 @@
 CC=clang
+GO=go
 
-day1: day1.c
-	$(CC) -o day1 day1.c
+.PHONY: all clean
 
-day2: day2.c
-	$(CC) -o day2 day2.c
+all: day1 day2 day3 day4 day5 day6 day7
 
-day3: day3.c
-	$(CC) -o day3 day3.c
+day5: src/day5.go
+	$(GO) build -o bin/day5 ./src/day5.go
 
-day4: day4.c
-	$(CC) -o day4 day4.c
+%: src/%.c
+	$(CC) -o bin/$@ $^
 
-day5: day5.go
-	go build -o day5 day5.go
-
-day6: day6.c
-	$(CC) -o day6 day6.c
+clean:
+	rm ./bin/day*
