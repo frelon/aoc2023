@@ -17,7 +17,7 @@ int race(long time, long distance) {
 
 int main() {
 	FILE *inputfd;
-	inputfd = fopen("input6.txt", "r");
+	inputfd = fopen("./input/input6.txt", "r");
 	if (inputfd == NULL) {
 		printf("Error opening file!");
 		return 1;

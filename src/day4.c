@@ -4,7 +4,7 @@
 
 int part1() {
 	FILE *inputfd;
-	inputfd = fopen("input4.txt", "r");
+	inputfd = fopen("./input/input4.txt", "r");
 	if (inputfd == NULL) {
 		printf("Error opening file!");
 		return 1;
@@ -61,7 +61,7 @@ int part1() {
 
 int part2() {
 	FILE *inputfd;
-	inputfd = fopen("input4.txt", "r");
+	inputfd = fopen("./input/input4.txt", "r");
 	if (inputfd == NULL) {
 		printf("Error opening file!");
 		return 1;

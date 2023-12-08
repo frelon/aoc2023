@@ -22,7 +22,7 @@ int strtodigit(char *str) {
 
 int part1() {
 	FILE *inputfd;
-	inputfd = fopen("input1.txt", "r");
+	inputfd = fopen("input/input1.txt", "r");
 	if (inputfd == NULL) {
 		printf("Error opening file!");
 		return 1;

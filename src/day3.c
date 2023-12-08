@@ -148,7 +148,7 @@ int part2(char *schematic) {
 
 int main() {
 	FILE *inputfd;
-	inputfd = fopen("input3.txt", "r");
+	inputfd = fopen("./input/input3.txt", "r");
 	if (inputfd == NULL) {
 		printf("Error opening file!");
 		return 1;

@@ -26,7 +26,7 @@ int strtocolor(char *str) {
 
 int part1() {
 	FILE *inputfd;
-	inputfd = fopen("input2.txt", "r");
+	inputfd = fopen("./input/input2.txt", "r");
 	if (inputfd == NULL) {
 		printf("Error opening file!");
 		return 1;

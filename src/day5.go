@@ -16,7 +16,7 @@ type Mapping struct {
 type Map []Mapping
 
 func main() {
-	data, err := os.ReadFile("input5.txt")
+	data, err := os.ReadFile("./input/input5.txt")
 	if err != nil {
 		fmt.Printf("ERROR reading input!")
 		return
